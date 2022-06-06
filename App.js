@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
+/**
+ * This Module is an entry point of the App for React Native.
+ */
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import { initializeStore } from './initializeStore';
+import Header from './mobile/components/header/headerComponent.js';
+import { Footer } from './mobile/components/footer/footerComponent.js';
+import MainComponent from './mobile/components/mainContent/mainBodyComponent.js';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const store = initializeStore();
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000000',
     alignItems: 'center',
-    justifyContent: 'center',
+    overflow: 'scroll',
+  },
+  color: {
+    color: '#f5deb3',
   },
 });
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <View style={styles.container}>
+          <Header />
+          <MainComponent />
+          <Footer />
+        </View>
+      </Provider>
+    );
+  }
+}
